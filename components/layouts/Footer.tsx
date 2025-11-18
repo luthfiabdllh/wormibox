@@ -81,8 +81,8 @@ const Footer = () => {
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Section */}
-          <Link href="/" className="flex flex-col gap-6">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-6">
+            <Link href="/" className="flex items-center gap-2 w-fit">
               <Image
                 width={36}
                 height={36}
@@ -91,7 +91,7 @@ const Footer = () => {
                 alt="wormibox logo"
               />
               <h2 className="text-xl ">WormiBox</h2>
-            </div>
+            </Link>
             <p className="text-sm text-white max-w-80 leading-relaxed">
               Solusi modern pengelolaan sampah organik dengan teknologi IoT
               untuk masa depan berkelanjutan.
@@ -108,12 +108,14 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-          </Link>
+          </div>
 
           {/* Dynamic Sections */}
           {sections.map((section, sectionIdx) => (
             <div key={sectionIdx}>
-              <h3 className="text-lg font-bold mb-6 text-lime-300">{section.title}</h3>
+              <h3 className="text-lg font-bold mb-6 text-lime-300">
+                {section.title}
+              </h3>
               {section.links ? (
                 <ul className="space-y-3">
                   {section.links.map((link, linkIdx) => (
