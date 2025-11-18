@@ -7,7 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function ModernTechnology() {
+interface ModernTechnologyProps {
+  type?: 1 | 2;
+}
+
+export default function ModernTechnology({ type = 1 }: ModernTechnologyProps) {
   const technologies = [
     {
       icon: Recycle,
@@ -35,10 +39,9 @@ export default function ModernTechnology() {
     },
   ];
 
-  return (
-    <section className="py-20 lg:py-28 bg-[#064e3b] relative overflow-hidden min-h-screen">
-      <div className="container mx-auto px-6">
-        {/* Header */}
+  const renderHeader = () => {
+    if (type === 1) {
+      return (
         <div className="text-center mb-20">
           <h2 className="text-4xl lg:text-5xl text-white leading-tight">
             TEKNOLOGI <span className="text-lime-50">MODERN</span> UNTUK{" "}
@@ -49,6 +52,28 @@ export default function ModernTechnology() {
             IoT
           </p>
         </div>
+      );
+    } else if (type === 2) {
+      return (
+        <div className="text-center mb-16">
+          <h2 className="text-4xl lg:text-5xl text-emerald-800 leading-tight mb-4">
+            TEKNOLOGI <span className="text-lime-50">MODERN</span> UNTUK{" "}
+            <span className="text-lime-50">MASA DEPAN ANDA</span>
+          </h2>
+          <div className="inline-block bg-emerald-800 px-8 py-4 shadow-[4px_4px_0_0_rgba(6,95,70,0.20)]">
+            <h3 className="text-3xl lg:text-4xl font-bold text-lime-300">
+              MASA DEPAN <span className="text-lime-50">ANDA</span>
+            </h3>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  return (
+    <section className={`py-20 lg:py-28 ${type === 1 ? 'bg-emerald-800' : 'bg-lime-300'} relative overflow-hidden min-h-screen`}>
+      <div className="container mx-auto px-6">
+        {renderHeader()}
 
         {/* GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
@@ -71,7 +96,7 @@ export default function ModernTechnology() {
               >
                 {/* Soft radial highlight */}
                 <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute right-0 top-0 w-36 h-36 bg-lime-300/20 rounded-bl-full"></div>
+                  <div className="absolute right-0 top-0 w-36 h-36 bg-gray-300/15 rounded-bl-full"></div>
                 </div>
 
                 <CardHeader className="pb-3 relative z-10 mb-6">
