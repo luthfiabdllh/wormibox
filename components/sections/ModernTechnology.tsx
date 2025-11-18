@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Separator } from "../ui/separator";
 
 export default function ModernTechnology() {
   const technologies = [
@@ -37,12 +36,12 @@ export default function ModernTechnology() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#064e3b] relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-[#064e3b] relative overflow-hidden min-h-screen">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
-            TEKNOLOGI <span className="text-lime-400">MODERN</span> UNTUK{" "}
+          <h2 className="text-4xl lg:text-5xl text-white leading-tight">
+            TEKNOLOGI <span className="text-lime-50">MODERN</span> UNTUK{" "}
             <span className="text-lime-400">MASA DEPAN</span> ANDA
           </h2>
           <p className="text-xl text-emerald-100 mt-4">
