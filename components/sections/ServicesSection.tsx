@@ -5,32 +5,39 @@ import {
   Megaphone,
   Package,
   TrendingUp,
+  Clock,
 } from "lucide-react";
 
 export default function ServicesSection() {
   const services = [
     {
-      icon: CircleDollarSign,
+      icon: Clock,
+      Bgicon: CircleDollarSign,
       title: "Program Loyalty Points",
     },
     {
-      icon: Users,
+      icon: Clock,
+      Bgicon: Users,
       title: "Membangun Kemitraan",
     },
     {
-      icon: Phone,
+      icon: Clock,
+      Bgicon: Phone,
       title: "Menyediakan Layanan Konsultasi",
     },
     {
-      icon: Megaphone,
+      icon: Clock,
+      Bgicon: Megaphone,
       title: "Menyediakan Layanan Pengaduan",
     },
     {
-      icon: Package,
+      icon: Clock,
+      Bgicon: Package,
       title: "Pengiriman Cepat dan Aman",
     },
     {
-      icon: TrendingUp,
+      icon: Clock,
+      Bgicon: TrendingUp,
       title: "Pengembangan Produk Berkelanjutan",
     },
   ];
@@ -54,6 +61,7 @@ export default function ServicesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
             const Icon = service.icon;
+            const BackgroundIcon = service.Bgicon;
             return (
               <div
                 key={index}
@@ -61,7 +69,7 @@ export default function ServicesSection() {
               >
                 {/* Background Icon - Watermark Style */}
                 <div className="absolute right-6 bottom-6 opacity-[0.07] group-hover:opacity-[0.12] transition-opacity duration-300">
-                  <Icon
+                  <BackgroundIcon
                     className="w-28 h-28 text-emerald-700"
                     strokeWidth={1.5}
                   />
