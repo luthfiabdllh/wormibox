@@ -1,20 +1,20 @@
 export const brandConfig = {
-  name: "Wormibox",
-  tagline: "Solusi Digital Terpercaya untuk Bisnis Anda",
+  name: "WormiBox",
+  tagline: "Inovasi Cerdas, Bumi Puas, Sampah Tuntas!",
   description:
-    "Kami adalah perusahaan teknologi yang berfokus pada pengembangan solusi digital inovatif untuk membantu bisnis berkembang di era modern.",
+    "Wujudkan pengelolaan sampah organik terbaik menjadi sumber daya bernilai melalui budidaya cacing tanah ANC dan teknologi IoT untuk proses lebih efisien dan ramah lingkungan.",
   colors: {
     primary: {
-      50: "hsl(210, 100%, 98%)",
-      100: "hsl(210, 100%, 95%)",
-      200: "hsl(210, 100%, 90%)",
-      300: "hsl(210, 100%, 80%)",
-      400: "hsl(210, 100%, 65%)",
-      500: "hsl(210, 100%, 50%)", 
-      600: "hsl(210, 100%, 40%)",
-      700: "hsl(210, 100%, 30%)",
-      800: "hsl(210, 100%, 20%)",
-      900: "hsl(210, 100%, 10%)",
+      50: "hsl(154, 100%, 98%)",
+      100: "hsl(154, 100%, 95%)",
+      200: "hsl(154, 100%, 90%)",
+      300: "hsl(154, 80%, 75%)",
+      400: "hsl(154, 70%, 55%)",
+      500: "hsl(154, 65%, 35%)",
+      600: "hsl(154, 70%, 30%)",
+      700: "hsl(154, 75%, 25%)",
+      800: "hsl(154, 80%, 20%)",
+      900: "hsl(154, 85%, 15%)",
     },
     secondary: {
       50: "hsl(160, 100%, 98%)",
