@@ -18,6 +18,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Image from "next/image";
 
 const Navbar = () => {
   return (
@@ -28,7 +29,9 @@ const Navbar = () => {
             href="https://www.shadcnblocks.com"
             className="flex items-center gap-2"
           >
-            <img
+            <Image
+              width={32}
+              height={32}
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg"
               className="max-h-8"
               alt="Shadcn UI Navbar"
@@ -44,7 +47,7 @@ const Navbar = () => {
                   href="#"
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    'relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 cursor-pointer'
+                    "relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 cursor-pointer"
                   )}
                 >
                   Products
@@ -55,7 +58,7 @@ const Navbar = () => {
                   href="#"
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    'relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 cursor-pointer'
+                    "relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 cursor-pointer"
                   )}
                 >
                   Resources
@@ -66,7 +69,7 @@ const Navbar = () => {
                   href="#"
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    'relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 cursor-pointer'
+                    "relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 cursor-pointer"
                   )}
                 >
                   Contact
@@ -90,7 +93,9 @@ const Navbar = () => {
                     href="https://www.shadcnblocks.com"
                     className="flex items-center gap-2"
                   >
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg"
                       className="max-h-8"
                       alt="Shadcn UI Navbar"
