@@ -2,12 +2,12 @@ import { Hero } from "@/components/sections/Hero";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div>
       <Hero />
 
       {/* Placeholder untuk sections lainnya */}
       <section className="py-20">
-        <div className="container">
+        <div>
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-4">
               Selamat Datang di {process.env.NEXT_PUBLIC_APP_NAME || "Wormibox"}

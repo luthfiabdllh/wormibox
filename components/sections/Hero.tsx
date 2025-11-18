@@ -25,7 +25,7 @@ export function Hero() {
         }}
       />
 
-      <div className="container relative py-20 md:py-32">
+      <div className="relative py-20 md:py-32">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Content */}
           <motion.div

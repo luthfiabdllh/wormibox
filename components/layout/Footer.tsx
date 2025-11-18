@@ -1,175 +1,146 @@
-import Link from "next/link";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Facebook,
-  Twitter,
-  Linkedin,
-  Instagram,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { brandConfig } from "@/lib/brand";
+import React from "react";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
-const footerLinks = {
-  company: [
-    { name: "Tentang Kami", href: "/about" },
-    { name: "Tim", href: "/team" },
-    { name: "Karir", href: "/careers" },
-    { name: "Blog", href: "/blog" },
-  ],
-  services: [
-    { name: "Web Development", href: "/services/web-development" },
-    { name: "Mobile Apps", href: "/services/mobile-apps" },
-    { name: "UI/UX Design", href: "/services/ui-ux-design" },
-    { name: "Digital Marketing", href: "/services/digital-marketing" },
-  ],
-  support: [
-    { name: "Help Center", href: "/help" },
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Contact", href: "/contact" },
-  ],
-};
+interface Footer7Props {
+  logo?: {
+    url: string;
+    src: string;
+    alt: string;
+    title: string;
+  };
+  sections?: Array<{
+    title: string;
+    links: Array<{ name: string; href: string }>;
+  }>;
+  description?: string;
+  socialLinks?: Array<{
+    icon: React.ReactElement;
+    href: string;
+    label: string;
+  }>;
+  copyright?: string;
+  legalLinks?: Array<{
+    name: string;
+    href: string;
+  }>;
+}
 
-const socialLinks = [
-  { name: "Facebook", href: "#", icon: Facebook },
-  { name: "Twitter", href: "#", icon: Twitter },
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "Instagram", href: "#", icon: Instagram },
+const defaultSections = [
+  {
+    title: "Product",
+    links: [
+      { name: "Overview", href: "#" },
+      { name: "Pricing", href: "#" },
+      { name: "Marketplace", href: "#" },
+      { name: "Features", href: "#" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { name: "About", href: "#" },
+      { name: "Team", href: "#" },
+      { name: "Blog", href: "#" },
+      { name: "Careers", href: "#" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { name: "Help", href: "#" },
+      { name: "Sales", href: "#" },
+      { name: "Advertise", href: "#" },
+      { name: "Privacy", href: "#" },
+    ],
+  },
 ];
 
-export function Footer() {
+const defaultSocialLinks = [
+  { icon: <FaInstagram className="size-5" />, href: "#", label: "Instagram" },
+  { icon: <FaFacebook className="size-5" />, href: "#", label: "Facebook" },
+  { icon: <FaTwitter className="size-5" />, href: "#", label: "Twitter" },
+  { icon: <FaLinkedin className="size-5" />, href: "#", label: "LinkedIn" },
+];
+
+const defaultLegalLinks = [
+  { name: "Terms and Conditions", href: "#" },
+  { name: "Privacy Policy", href: "#" },
+];
+
+const Footer = ({
+  logo = {
+    url: "https://www.shadcnblocks.com",
+    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+    alt: "logo",
+    title: "Shadcnblocks.com",
+  },
+  sections = defaultSections,
+  description = "A collection of components for your startup business or side project.",
+  socialLinks = defaultSocialLinks,
+  copyright = "© 2024 Shadcnblocks.com. All rights reserved.",
+  legalLinks = defaultLegalLinks,
+}: Footer7Props) => {
   return (
-    <footer className="bg-gray-50 border-t">
-      <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
-          {/* Company Info */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="mb-4 inline-flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">W</span>
-              </div>
-              <span className="font-bold text-xl">{brandConfig.name}</span>
-            </Link>
-            <p className="mb-4 max-w-xs text-sm text-gray-600">
-              {brandConfig.description}
+    <section className="py-32 border-t">
+      <div className="container mx-auto px-4">
+        <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
+          <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
+            {/* Logo */}
+            <div className="flex items-center gap-2 lg:justify-start">
+              <a href={logo.url}>
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  title={logo.title}
+                  className="h-8"
+                />
+              </a>
+              <h2 className="text-xl font-semibold">{logo.title}</h2>
+            </div>
+            <p className="text-muted-foreground max-w-[70%] text-sm">
+              {description}
             </p>
-
-            {/* Contact Info */}
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <Mail className="h-4 w-4" />
-                <span>info@wormibox.com</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <Phone className="h-4 w-4" />
-                <span>+62 21 1234 5678</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <MapPin className="h-4 w-4" />
-                <span>Jakarta, Indonesia</span>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="mt-6 flex space-x-4">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <Button
-                    key={social.name}
-                    variant="ghost"
-                    size="sm"
-                    asChild
-                    className="h-8 w-8 p-0"
-                  >
-                    <Link href={social.href} aria-label={social.name}>
-                      <Icon className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Company Links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold">Perusahaan</h3>
-            <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
+            <ul className="text-muted-foreground flex items-center space-x-6">
+              {socialLinks.map((social, idx) => (
+                <li key={idx} className="hover:text-primary font-medium">
+                  <a href={social.href} aria-label={social.label}>
+                    {social.icon}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Services Links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold">Layanan</h3>
-            <ul className="space-y-2">
-              {footerLinks.services.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Support Links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold">Dukungan</h3>
-            <ul className="space-y-2">
-              {footerLinks.support.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="grid w-full gap-6 md:grid-cols-3 lg:gap-20">
+            {sections.map((section, sectionIdx) => (
+              <div key={sectionIdx}>
+                <h3 className="mb-4 font-bold">{section.title}</h3>
+                <ul className="text-muted-foreground space-y-3 text-sm">
+                  {section.links.map((link, linkIdx) => (
+                    <li
+                      key={linkIdx}
+                      className="hover:text-primary font-medium"
+                    >
+                      <a href={link.href}>{link.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Newsletter */}
-        <div className="mt-12 border-t pt-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div>
-              <h3 className="mb-2 text-lg font-semibold">Newsletter</h3>
-              <p className="mb-4 text-sm text-muted-foreground">
-                Dapatkan update terbaru tentang produk dan layanan kami.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Input type="email" placeholder="Email Anda" className="flex-1" />
-              <Button>Subscribe</Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="mt-8 border-t pt-8 text-center">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} {brandConfig.name}. All rights
-            reserved.
-          </p>
+        <div className="text-muted-foreground mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium md:flex-row md:items-center md:text-left">
+          <p className="order-2 lg:order-1">{copyright}</p>
+          <ul className="order-1 flex flex-col gap-2 md:order-2 md:flex-row">
+            {legalLinks.map((link, idx) => (
+              <li key={idx} className="hover:text-primary">
+                <a href={link.href}> {link.name}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </footer>
+    </section>
   );
-}
+};
+
+export { Footer };
