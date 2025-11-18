@@ -5,7 +5,7 @@ import ArrowButton from "../ui/arrow-button";
 const Hero = () => {
   return (
     <section className="bg-emerald-800 relative overflow-hidden">
-      <div className="container min-h-screen mx-auto lg:mt-24">
+      <div className="container min-h-screen mx-auto flex flex-col justify-center">
         <div className="grid items-center gap-8 lg:grid-cols-2 min-h-[80vh] py-12 lg:py-0">
           <div className="flex flex-col items-center p-6 sm:p-8 md:p-12 lg:p-16 text-center lg:items-start lg:text-left">
             <h1 className="mt-6 text-pretty text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
