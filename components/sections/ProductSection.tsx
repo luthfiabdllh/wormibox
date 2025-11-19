@@ -53,7 +53,7 @@ export default function ProductSection() {
   };
 
   return (
-    <section className="relative bg-linear-to-br from-lime-50 via-lime-100/30 to-lime-50 py-20 px-6 overflow-hidden min-h-screen flex items-center">
+    <section id="product" className="relative bg-linear-to-br from-lime-50 via-lime-100/30 to-lime-50 py-20 px-6 overflow-hidden min-h-screen flex items-center">
       {/* Background Watermark - Shopping Cart */}
       <div className="absolute top-12 left-8 md:left-16 lg:left-24 opacity-[0.03]">
         <ShoppingCart
@@ -183,7 +183,7 @@ export default function ProductSection() {
 
             {/* CTA Button */}
             <Link
-              href="#contact"
+              href="https://shopee.co.id/wormibox"
               className="group w-full bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-3"
             >
               <ShoppingCart className="w-5 h-5" strokeWidth={2.5} />

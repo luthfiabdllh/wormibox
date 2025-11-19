@@ -33,6 +33,7 @@ export default function ConsultSection() {
       <ArrowButton
         title="Konsultasi Sekarang"
         href="/contact"
+        target="_self"
         variant="emerald"
       />
     </div>

@@ -19,7 +19,7 @@ const Hero = () => {
               bernilai melalui budidaya cacing tanah ANC dan teknologi IoT,
               untuk proses lebih efisien dan ramah lingkungan.
             </p>
-            <ArrowButton title="Pesan Wormibox" href="#about" />
+            <ArrowButton title="Pesan Wormibox" href="https://shopee.co.id/wormibox" />
           </div>
           <div className="relative w-full h-[50vh] lg:h-[70vh] flex items-center justify-center">
             <BlobMask src="/images/hero.jpg" />

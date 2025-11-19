@@ -71,7 +71,7 @@ export default function ModernTechnology({ type = 1 }: ModernTechnologyProps) {
   };
 
   return (
-    <section className={`py-20 lg:py-28 ${type === 1 ? 'bg-emerald-800' : 'bg-lime-300'} relative overflow-hidden min-h-screen`}>
+    <section id="solutions" className={`py-20 lg:py-28 ${type === 1 ? 'bg-emerald-800' : 'bg-lime-300'} relative overflow-hidden min-h-screen`}>
       <div className="container mx-auto px-6">
         {renderHeader()}
 

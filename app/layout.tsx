@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${inter.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}
+        className={`${inter.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col scroll-smooth`}
       >
         {children}
       </body>

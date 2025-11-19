@@ -1,22 +1,19 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ArrowButton({
   title,
   href,
   variant = "default",
+  target = "_blank",
 }: {
   title: string;
   href: string;
   variant?: "default" | "emerald";
+  target?: "_blank" | "_self";
 }) {
-  const router = useRouter();
-
-  function onClick() {
-    router.push(href);
-  }
 
   const buttonClasses =
     variant === "emerald"
@@ -24,9 +21,10 @@ export default function ArrowButton({
       : "text-primary-foreground bg-primary group-hover:bg-primary/90 group-hover:text-primary-foreground";
 
   return (
-    <div
+    <Link
+      href={href}
+      target={target}
       className="inline-flex -space-x-1 group text-emerald-800"
-      onClick={onClick}
     >
       <button
         className={`rounded-full transition ${buttonClasses} h-10 px-6 text-base sm:text-md whitespace-nowrap font-medium`}
@@ -38,6 +36,6 @@ export default function ArrowButton({
       >
         <ArrowUpRight />
       </button>
-    </div>
+    </Link>
   );
 }

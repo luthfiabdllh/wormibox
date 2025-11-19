@@ -94,7 +94,7 @@ const Navbar = () => {
                     Login
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-100">
+                <DialogContent>
                   <DialogHeader>
                     <DialogTitle className="text-3xl font-bold text-emerald-800">
                       Welcome, Eco Feeders!
@@ -141,12 +141,14 @@ const Navbar = () => {
                 </DialogContent>
               </Dialog>
             ) : (
-              <Button
-                variant="outline"
-                className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
-              >
-                Pesan Sekarang
-              </Button>
+              <Link href="https://shopee.co.id/wormibox" target="_blank">
+                <Button
+                  variant="outline"
+                  className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+                >
+                  Pesan Sekarang
+                </Button>
+              </Link>
             )}
           </div>
           <Sheet>
@@ -251,12 +253,14 @@ const Navbar = () => {
                       </DialogContent>
                     </Dialog>
                   ) : (
-                    <Button
-                      variant="outline"
-                      className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
-                    >
-                      Pesan Sekarang
-                    </Button>
+                    <Link href="https://shopee.co.id/wormibox" target="_blank">
+                      <Button
+                        variant="outline"
+                        className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+                      >
+                        Pesan Sekarang
+                      </Button>
+                    </Link>
                   )}
                 </div>
               </div>

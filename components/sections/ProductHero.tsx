@@ -113,7 +113,7 @@ export default function ProductHero() {
             <div className="relative h-[50vh] md:h-[70vh]">
               <BlobMask src="/images/product-hero.jpg" />
               <div className="absolute bottom-0 right-4 sm:bottom-2 sm:right-18 lg:bottom-3 lg:right-16">
-                <ArrowButton title="Dapatkan Wormibox" href="#about" />
+                <ArrowButton title="Dapatkan Wormibox" href="#product" target="_self" />
               </div>
             </div>
           </div>

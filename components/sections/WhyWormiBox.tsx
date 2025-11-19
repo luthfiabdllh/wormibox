@@ -8,7 +8,7 @@ import ArrowButton from "../ui/arrow-button";
 
 export default function WhyWormiBox() {
   return (
-    <section className="min-h-screen bg-lime-300 py-16 lg:py-24">
+    <section className="min-h-screen bg-lime-300 py-16 lg:py-24" id="why-wormibox">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -116,7 +116,7 @@ export default function WhyWormiBox() {
                       </h3>
                     </div>
 
-                    <ArrowButton title="Pelajari Lebih Lanjut" href="#sdgs" />
+                    <ArrowButton title="Pelajari Lebih Lanjut" href="https://sdgs.bappenas.go.id/" />
                   </div>
 
                   {/* SDGs CARDS */}

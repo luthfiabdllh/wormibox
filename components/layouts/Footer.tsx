@@ -14,11 +14,11 @@ const Footer = () => {
     {
       title: "Tautan Cepat",
       links: [
-        { name: "Mengapa WormiBox?", href: "#why-wormibox" },
-        { name: "Tentang WormiBox", href: "#about" },
-        { name: "Solusi Kami", href: "#solutions" },
-        { name: "Layanan & Dukungan", href: "#support" },
-        { name: "Hubungi Tim", href: "#contact" },
+        { name: "Mengapa WormiBox?", href: "/#why-wormibox" },
+        { name: "Tentang WormiBox", href: "/about" },
+        { name: "Solusi Kami", href: "/#solutions" },
+        { name: "Layanan & Dukungan", href: "/contact" },
+        { name: "Hubungi Tim", href: "/contact" },
       ],
     },
     {
