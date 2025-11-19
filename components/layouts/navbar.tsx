@@ -3,8 +3,19 @@
 import { MenuIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -24,6 +35,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const [openLoginDialog, setOpenLoginDialog] = useState(false);
 
   // Define navigation items dynamically
   const desktopNavItems = [
@@ -33,6 +45,8 @@ const Navbar = () => {
     { label: "Layanan", href: "/service" },
     { label: "Kontak", href: "/contact" },
   ];
+
+  const isHomePage = pathname === "/";
 
   return (
     <section className="py-4 fixed top-0 left-0 w-full z-50 bg-emerald-800/30 backdrop-blur-md">
@@ -59,7 +73,8 @@ const Navbar = () => {
                     className={cn(
                       navigationMenuTriggerStyle(),
                       "relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-0.5 before:bg-primary before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 cursor-pointer bg-transparent hover:bg-transparent text-white hover:text-primary",
-                      pathname === item.href && "before:scale-x-100 text-primary"
+                      pathname === item.href &&
+                        "before:scale-x-100 text-primary"
                     )}
                   >
                     {item.label}
@@ -69,7 +84,70 @@ const Navbar = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <Button variant="outline" className="bg-lime-50 text-emerald-800">Login</Button>
+            {isHomePage ? (
+              <Dialog open={openLoginDialog} onOpenChange={setOpenLoginDialog}>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+                  >
+                    Login
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-100">
+                  <DialogHeader>
+                    <DialogTitle className="text-3xl font-bold text-emerald-800">
+                      Welcome, Eco Feeders!
+                    </DialogTitle>
+                    <DialogDescription className="text-emerald-700 text-lg font-semibold pt-2">
+                      Login to your account
+                    </DialogDescription>
+                    <p className="text-gray-500 text-sm pt-1">
+                      Enter your email below to login to your account
+                    </p>
+                  </DialogHeader>
+                  <div className="grid gap-6 py-4">
+                    <div className="grid gap-2">
+                      <Label
+                        htmlFor="email"
+                        className="text-emerald-800 font-semibold text-base"
+                      >
+                        Email
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="m@example.com"
+                        className="bg-white border-gray-200"
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label
+                        htmlFor="password"
+                        className="text-emerald-800 font-semibold text-base"
+                      >
+                        Password
+                      </Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        className="bg-white border-gray-200"
+                      />
+                    </div>
+                    <Button className="w-full bg-emerald-800 hover:bg-emerald-900 text-white">
+                      Login
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            ) : (
+              <Button
+                variant="outline"
+                className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+              >
+                Pesan Sekarang
+              </Button>
+            )}
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -77,7 +155,10 @@ const Navbar = () => {
                 <MenuIcon className="h-4 w-4" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="top" className="max-h-screen overflow-auto bg-emerald-800">
+            <SheetContent
+              side="top"
+              className="max-h-screen overflow-auto bg-emerald-800"
+            >
               <SheetHeader>
                 <SheetTitle>
                   <Link href="/" className="flex items-center gap-2">
@@ -110,7 +191,73 @@ const Navbar = () => {
                   ))}
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  <Button variant="outline" className="bg-lime-50 text-emerald-800">Login</Button>
+                  {isHomePage ? (
+                    <Dialog
+                      open={openLoginDialog}
+                      onOpenChange={setOpenLoginDialog}
+                    >
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+                        >
+                          Login
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[500px] bg-lime-50">
+                        <DialogHeader>
+                          <DialogTitle className="text-3xl font-bold text-emerald-800">
+                            Welcome, Eco Feeders!
+                          </DialogTitle>
+                          <DialogDescription className="text-emerald-700 text-lg font-semibold pt-2">
+                            Login to your account
+                          </DialogDescription>
+                          <p className="text-gray-500 text-sm pt-1">
+                            Enter your email below to login to your account
+                          </p>
+                        </DialogHeader>
+                        <div className="grid gap-6 py-4">
+                          <div className="grid gap-2">
+                            <Label
+                              htmlFor="email-mobile"
+                              className="text-emerald-800 font-semibold text-base"
+                            >
+                              Email
+                            </Label>
+                            <Input
+                              id="email-mobile"
+                              type="email"
+                              placeholder="m@example.com"
+                              className="bg-white border-gray-200"
+                            />
+                          </div>
+                          <div className="grid gap-2">
+                            <Label
+                              htmlFor="password-mobile"
+                              className="text-emerald-800 font-semibold text-base"
+                            >
+                              Password
+                            </Label>
+                            <Input
+                              id="password-mobile"
+                              type="password"
+                              className="bg-white border-gray-200"
+                            />
+                          </div>
+                          <Button className="w-full bg-emerald-800 hover:bg-emerald-900 text-white">
+                            Login
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+                    >
+                      Pesan Sekarang
+                    </Button>
+                  )}
                 </div>
               </div>
             </SheetContent>
