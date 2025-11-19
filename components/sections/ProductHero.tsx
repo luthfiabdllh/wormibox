@@ -76,7 +76,7 @@ export default function ProductHero() {
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 px-8 items-center">
           {/* Features List */}
           <div className="space-y-4">
             {features.map((feature, index) => {
@@ -84,7 +84,7 @@ export default function ProductHero() {
               return (
                 <div
                   key={index}
-                  className="group flex items-start gap-4 bg-white/95 hover:bg-white rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                  className="group flex items-center gap-4 bg-lime-50 hover:bg-lime-100  p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl rounded-bl-4xl rounded-tr-4xl rounded-lg"
                 >
                   {/* Icon */}
                   <div className="bg-lime-300 w-12 h-12 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
@@ -109,10 +109,12 @@ export default function ProductHero() {
           </div>
 
           {/* Product Image */}
-          <div className="relative w-full h-[50vh] lg:h-[70vh] flex items-center justify-center">
-            <BlobMask src="/images/product-hero.jpg" />
-            <div className="absolute bottom-3 right-22">
-              <ArrowButton title="Dapatkan Wormibox" href="#about" />
+          <div className="w-full flex items-center justify-center">
+            <div className="relative h-[50vh] md:h-[70vh]">
+              <BlobMask src="/images/product-hero.jpg" />
+              <div className="absolute bottom-0 right-4 sm:bottom-2 sm:right-18 lg:bottom-3 lg:right-16">
+                <ArrowButton title="Dapatkan Wormibox" href="#about" />
+              </div>
             </div>
           </div>
         </div>
