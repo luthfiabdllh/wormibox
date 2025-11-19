@@ -1,37 +1,69 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { User } from "firebase/auth";
 import DashboardHeader from "@/components/dashboard/ui/DashboardHeader";
 import DashboardTitle from "@/components/dashboard/ui/DashboardTitle";
 import StatsCards from "@/components/dashboard/StatsCards";
 import HumidityGaugeCard from "@/components/dashboard/HumidityGaugeCard";
 import TemperatureGaugeCard from "@/components/dashboard/TemperatureGaugeCard";
+import { logoutUser, onAuthStateChanged } from "@/lib/firebase";
+import { useSensorData } from "@/hooks/useSensorData";
+import { useHistoricalData } from "@/hooks/useHistoricalData";
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [currentTime, setCurrentTime] = useState(new Date());
-
+  const [user, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
+  const { sensorData } = useSensorData();
+  const { processHistoricalData } = useHistoricalData();
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Sample data for humidity chart
-  const humidityData = [
-    { date: "8 Nov", value: 38 },
-    { date: "9 Nov", value: 37 },
-    { date: "10 Nov", value: 48 },
-    { date: "11 Nov", value: 36 },
-    { date: "12 Nov", value: 44 },
-  ];
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged((user) => {
+      if (!user) {
+        router.push("/");
+      } else {
+        setUser(user);
+        setAuthLoading(false);
+      }
+    });
+    return () => unsubscribe();
+  }, [router]);
 
-  // Sample data for temperature chart
-  const temperatureData = [
-    { date: "8 Nov", value: 29 },
-    { date: "9 Nov", value: 30 },
-    { date: "10 Nov", value: 28 },
-    { date: "11 Nov", value: 28 },
-    { date: "12 Nov", value: 29 },
-  ];
+  const processedData = processHistoricalData();
+  const humidityData = processedData.map((item) => ({
+    date: item.date,
+    value: item.humidity,
+  }));
+  const temperatureData = processedData.map((item) => ({
+    date: item.date,
+    value: item.temperature,
+  }));
+
+  // Calculate trends
+  const calculateTrend = (data: Array<{ value: number }>) => {
+    if (data.length < 2) return { trend: 0, percentage: "0%" };
+
+    const latest = data[data.length - 1].value;
+    const previous = data[data.length - 2].value;
+    const change = latest - previous;
+    const percentage =
+      previous !== 0 ? ((change / previous) * 100).toFixed(1) : "0";
+
+    return {
+      trend: change,
+      percentage: change >= 0 ? `+${percentage}%` : `${percentage}%`,
+    };
+  };
+
+  const humidityTrend = calculateTrend(humidityData);
+  const temperatureTrend = calculateTrend(temperatureData);
 
   const formatDateTime = (date: Date) => {
     return date
@@ -47,8 +79,8 @@ export default function DashboardPage() {
       .replace(/\//g, "-");
   };
 
-  const currentHumidity = 40;
-  const currentTemperature = 27;
+  const currentHumidity = sensorData?.humidity || 40;
+  const currentTemperature = sensorData?.temperature || 27;
 
   // Humidity range: 0-100% with optimal 40-60%
   const humidityMin = 0;
@@ -70,15 +102,34 @@ export default function DashboardPage() {
     Math.min(100, (currentTemperature / temperatureMax) * 100)
   );
 
-  const handleLogout = () => {
-    // Add logout logic here
-    console.log("Logout clicked");
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-800 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // Will redirect to login
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <DashboardHeader userEmail="user@example.com" onLogout={handleLogout} />
+      <DashboardHeader userEmail={user.email || ""} onLogout={handleLogout} />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
@@ -90,6 +141,8 @@ export default function DashboardPage() {
           currentHumidity={currentHumidity}
           currentTemperature={currentTemperature}
           currentTime={formatDateTime(currentTime)}
+          humidityTrend={humidityTrend}
+          temperatureTrend={temperatureTrend}
         />
 
         {/* Gauge Cards */}

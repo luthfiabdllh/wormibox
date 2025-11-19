@@ -2,8 +2,10 @@
 
 import { MenuIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { User } from "firebase/auth";
+import { loginUser, logoutUser, onAuthStateChanged } from "@/lib/firebase";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +37,51 @@ import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged((user) => {
+      setUser(user);
+      if (user) {
+        setOpenLoginDialog(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      await loginUser(email, password);
+      router.push("/dashboard");
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Login gagal. Silakan coba lagi.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      router.push("/");
+    } catch (error: unknown) {
+      console.error("Logout error:", error);
+    }
+  };
 
   // Define navigation items dynamically
   const desktopNavItems = [
@@ -84,7 +130,18 @@ const Navbar = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            {isHomePage ? (
+            {user ? (
+              <div className="flex items-center gap-4">
+                <span className="text-white text-sm">{user.email}</span>
+                <Button
+                  variant="outline"
+                  className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </div>
+            ) : isHomePage ? (
               <Dialog open={openLoginDialog} onOpenChange={setOpenLoginDialog}>
                 <DialogTrigger asChild>
                   <Button
@@ -106,7 +163,12 @@ const Navbar = () => {
                       Enter your email below to login to your account
                     </p>
                   </DialogHeader>
-                  <div className="grid gap-6 py-4">
+                  <form onSubmit={handleLogin} className="grid gap-6 py-4">
+                    {error && (
+                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                        {error}
+                      </div>
+                    )}
                     <div className="grid gap-2">
                       <Label
                         htmlFor="email"
@@ -117,8 +179,11 @@ const Navbar = () => {
                       <Input
                         id="email"
                         type="email"
-                        placeholder="m@example.com"
+                        placeholder="wormibox@gmail.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="bg-white border-gray-200"
+                        required
                       />
                     </div>
                     <div className="grid gap-2">
@@ -131,13 +196,20 @@ const Navbar = () => {
                       <Input
                         id="password"
                         type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="bg-white border-gray-200"
+                        required
                       />
                     </div>
-                    <Button className="w-full bg-emerald-800 hover:bg-emerald-900 text-white">
-                      Login
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full bg-emerald-800 hover:bg-emerald-900 text-white"
+                    >
+                      {loading ? "Loading..." : "Login"}
                     </Button>
-                  </div>
+                  </form>
                 </DialogContent>
               </Dialog>
             ) : (
@@ -193,7 +265,18 @@ const Navbar = () => {
                   ))}
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  {isHomePage ? (
+                  {user ? (
+                    <div className="flex flex-col gap-4">
+                      <span className="text-white text-sm">{user.email}</span>
+                      <Button
+                        variant="outline"
+                        className="bg-lime-50 text-emerald-800 hover:bg-lime-100"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </Button>
+                    </div>
+                  ) : isHomePage ? (
                     <Dialog
                       open={openLoginDialog}
                       onOpenChange={setOpenLoginDialog}
@@ -218,7 +301,15 @@ const Navbar = () => {
                             Enter your email below to login to your account
                           </p>
                         </DialogHeader>
-                        <div className="grid gap-6 py-4">
+                        <form
+                          onSubmit={handleLogin}
+                          className="grid gap-6 py-4"
+                        >
+                          {error && (
+                            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                              {error}
+                            </div>
+                          )}
                           <div className="grid gap-2">
                             <Label
                               htmlFor="email-mobile"
@@ -229,8 +320,11 @@ const Navbar = () => {
                             <Input
                               id="email-mobile"
                               type="email"
-                              placeholder="m@example.com"
+                              placeholder="wormibox@gmail.com"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
                               className="bg-white border-gray-200"
+                              required
                             />
                           </div>
                           <div className="grid gap-2">
@@ -243,13 +337,20 @@ const Navbar = () => {
                             <Input
                               id="password-mobile"
                               type="password"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
                               className="bg-white border-gray-200"
+                              required
                             />
                           </div>
-                          <Button className="w-full bg-emerald-800 hover:bg-emerald-900 text-white">
-                            Login
+                          <Button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full bg-emerald-800 hover:bg-emerald-900 text-white"
+                          >
+                            {loading ? "Loading..." : "Login"}
                           </Button>
-                        </div>
+                        </form>
                       </DialogContent>
                     </Dialog>
                   ) : (

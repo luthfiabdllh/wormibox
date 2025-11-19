@@ -1,4 +1,4 @@
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -12,31 +12,38 @@ interface StatsCardsProps {
   currentHumidity: number;
   currentTemperature: number;
   currentTime: string;
+  humidityTrend?: { trend: number; percentage: string };
+  temperatureTrend?: { trend: number; percentage: string };
 }
 
 export default function StatsCards({
   currentHumidity,
   currentTemperature,
   currentTime,
+  humidityTrend,
+  temperatureTrend,
 }: StatsCardsProps) {
   const statsCards = [
     {
       title: "Humidity",
       value: `${currentHumidity}%`,
-      trend: "+2.3%",
-      icon: TrendingUp,
+      trend: humidityTrend?.percentage || "0%",
+      icon: (humidityTrend?.trend ?? 0) >= 0 ? TrendingUp : TrendingDown,
+      trendValue: humidityTrend?.trend ?? 0,
     },
     {
       title: "Temperature",
       value: `${currentTemperature}°C`,
-      trend: "+2.3%",
-      icon: TrendingUp,
+      trend: temperatureTrend?.percentage || "0%",
+      icon: (temperatureTrend?.trend ?? 0) >= 0 ? TrendingUp : TrendingDown,
+      trendValue: temperatureTrend?.trend ?? 0,
     },
     {
       title: "Timestamp",
       value: currentTime,
       trend: null,
       icon: null,
+      trendValue: 0,
     },
   ];
 
@@ -53,7 +60,14 @@ export default function StatsCards({
                 {card.title}
               </CardDescription>
               {card.trend && card.icon && (
-                <Badge variant="outline">
+                <Badge
+                  variant="outline"
+                  className={
+                    card.trendValue >= 0
+                      ? "text-green-700 border-green-300 bg-green-50"
+                      : "text-red-700 border-red-300 bg-red-50"
+                  }
+                >
                   <card.icon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                   {card.trend}
                 </Badge>
