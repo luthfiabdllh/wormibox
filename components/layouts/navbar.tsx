@@ -77,7 +77,7 @@ const Navbar = () => {
                 <MenuIcon className="h-4 w-4" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="top" className="max-h-screen overflow-auto">
+            <SheetContent side="top" className="max-h-screen overflow-auto bg-emerald-800">
               <SheetHeader>
                 <SheetTitle>
                   <Link href="/" className="flex items-center gap-2">
@@ -88,7 +88,7 @@ const Navbar = () => {
                       className="max-h-8"
                       alt="wormibox logo"
                     />
-                    <span className="text-lg font-semibold tracking-tighter">
+                    <span className="text-lg font-semibold tracking-tighter text-white">
                       WormiBox
                     </span>
                   </Link>
