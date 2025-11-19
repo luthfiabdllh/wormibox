@@ -208,10 +208,10 @@ const Navbar = () => {
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[500px] bg-lime-50">
                         <DialogHeader>
-                          <DialogTitle className="text-3xl font-bold text-emerald-800">
+                          <DialogTitle className="text-3xl font-semibold text-emerald-800">
                             Welcome, Eco Feeders!
                           </DialogTitle>
-                          <DialogDescription className="text-emerald-700 text-lg font-semibold pt-2">
+                          <DialogDescription className="text-emerald-700 text-lg font-medium pt-2">
                             Login to your account
                           </DialogDescription>
                           <p className="text-gray-500 text-sm pt-1">
