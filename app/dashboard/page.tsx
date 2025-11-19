@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import DashboardTitle from "@/components/dashboard/DashboardTitle";
+import DashboardHeader from "@/components/dashboard/ui/DashboardHeader";
+import DashboardTitle from "@/components/dashboard/ui/DashboardTitle";
 import StatsCards from "@/components/dashboard/StatsCards";
 import HumidityGaugeCard from "@/components/dashboard/HumidityGaugeCard";
 import TemperatureGaugeCard from "@/components/dashboard/TemperatureGaugeCard";
@@ -47,33 +47,27 @@ export default function DashboardPage() {
       .replace(/\//g, "-");
   };
 
-  const currentHumidity = 40.6;
-  const currentTemperature = 29;
-  const gaugeHumidity = 39;
-  const gaugeTemperature = 27;
+  const currentHumidity = 40;
+  const currentTemperature = 27;
 
-  // Humidity range: 40% (min) to 80% (max)
-  const humidityMin = 40;
-  const humidityMax = 80;
+  // Humidity range: 0-100% with optimal 40-60%
+  const humidityMin = 0;
+  const humidityMax = 100;
+  const humidityOptimalMin = 40;
+  const humidityOptimalMax = 60;
   const humidityPercentage = Math.max(
     0,
-    Math.min(
-      100,
-      ((gaugeHumidity - humidityMin) / (humidityMax - humidityMin)) * 100
-    )
+    Math.min(100, (currentHumidity / humidityMax) * 100)
   );
 
-  // Temperature range: 20°C (min) to 38°C (max)
-  const temperatureMin = 20;
-  const temperatureMax = 38;
+  // Temperature range: 0-100°C with optimal 26-28°C
+  const temperatureMin = 0;
+  const temperatureMax = 100;
+  const temperatureOptimalMin = 26;
+  const temperatureOptimalMax = 28;
   const temperaturePercentage = Math.max(
     0,
-    Math.min(
-      100,
-      ((gaugeTemperature - temperatureMin) /
-        (temperatureMax - temperatureMin)) *
-        100
-    )
+    Math.min(100, (currentTemperature / temperatureMax) * 100)
   );
 
   const handleLogout = () => {
@@ -101,14 +95,22 @@ export default function DashboardPage() {
         {/* Gauge Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
           <HumidityGaugeCard
-            gaugeHumidity={gaugeHumidity}
+            gaugeHumidity={currentHumidity}
             humidityPercentage={humidityPercentage}
             humidityData={humidityData}
+            humidityMin={humidityMin}
+            humidityMax={humidityMax}
+            humidityOptimalMin={humidityOptimalMin}
+            humidityOptimalMax={humidityOptimalMax}
           />
           <TemperatureGaugeCard
-            gaugeTemperature={gaugeTemperature}
+            gaugeTemperature={currentTemperature}
             temperaturePercentage={temperaturePercentage}
             temperatureData={temperatureData}
+            temperatureMin={temperatureMin}
+            temperatureMax={temperatureMax}
+            temperatureOptimalMin={temperatureOptimalMin}
+            temperatureOptimalMax={temperatureOptimalMax}
           />
         </div>
       </main>
