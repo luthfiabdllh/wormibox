@@ -1,4 +1,4 @@
-import { CheckCircle, TrendingUp, Target } from "lucide-react";
+import { CheckCircle, TrendingUp, Target, Worm } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -37,8 +37,8 @@ export default function WhyWormiBox() {
               {/* Overlay card */}
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="rounded-full bg-white/30 backdrop-blur-xs p-2 mb-4 w-fit flex items-center space-x-2">
-                  <div className="size-12 bg-emerald-600 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">W</span>
+                  <div className="size-12 bg-white rounded-full flex items-center justify-center">
+                    <Worm className="w-6 h-6" />
                   </div>
                   <span className="font-semibold text-white">
                     African Night Crawler
