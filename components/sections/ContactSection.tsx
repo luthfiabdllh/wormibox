@@ -19,15 +19,15 @@ export default function ContactSection() {
     {
       icon: MessageCircle,
       label: "Whatsapp",
-      value: "088888888888",
-      href: "https://wa.me/6288888888888",
+      value: "+62 857-2725-1286",
+      href: "https://wa.me/6285727251286",
       bgColor: "bg-lime-300",
     },
     {
       icon: Phone,
       label: "Telepon",
-      value: "088888888888",
-      href: "tel:+6288888888888",
+      value: "+62 857-2725-1286",
+      href: "tel:+6285727251286",
       bgColor: "bg-lime-300",
     },
     {
