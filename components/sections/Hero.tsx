@@ -22,7 +22,7 @@ const Hero = () => {
             <ArrowButton title="Pesan Wormibox" href="https://shopee.co.id/wormibox" />
           </div>
           <div className="relative w-full h-[50vh] lg:h-[70vh] flex items-center justify-center">
-            <BlobMask src="/images/hero.jpg" />
+            <BlobMask src="/images/poster.jpg" />
           </div>
         </div>
       </div>
