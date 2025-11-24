@@ -60,7 +60,7 @@ export default function DashboardPage() {
   const humidityTrend = calculateTrend(humidityData);
   const temperatureTrend = calculateTrend(temperatureData);
   
-  const currentHumidity = parseFloat(((sensorData?.humidity ?? 40) * 100).toFixed(1));
+  const currentHumidity = parseFloat(((sensorData?.humidity ?? 40)).toFixed(1));
   const currentTemperature = sensorData?.temperature || 27;
   const currentTime =  new Date().toLocaleDateString() + " " + sensorData?.timeStr;
 

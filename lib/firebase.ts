@@ -97,6 +97,14 @@ export const onAuthStateChanged = (callback: (user: User | null) => void) => {
   return auth.onAuthStateChanged(callback);
 };
 
+// Helper function to get userId based on email
+const getUserIdFromEmail = (email: string | null): string => {
+  if (email === "wormibox@gmail.com") {
+    return "fzGeI1UaX3bnURc0KTF1Q1IdHcA3";
+  }
+  return "ausFzWphXiWS7H6QBk4qhy9DHXc2";
+};
+
 // Database functions
 export const writeSensorData = async (data: {
   humidity: number;
@@ -114,7 +122,8 @@ export const writeSensorData = async (data: {
 
 export const readSensorData = async (): Promise<SensorData | null> => {
   try {
-    const userId = "fzGeI1UaX3bnURc0KTF1Q1IdHcA3";
+    const currentUser = auth.currentUser;
+    const userId = getUserIdFromEmail(currentUser?.email || null);
     const deviceId = "Worm1";
     const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
@@ -148,7 +157,8 @@ export const readSensorData = async (): Promise<SensorData | null> => {
 export const subscribeToSensorData = (
   callback: (data: SensorData | null) => void
 ) => {
-  const userId = "fzGeI1UaX3bnURc0KTF1Q1IdHcA3";
+  const currentUser = auth.currentUser;
+  const userId = getUserIdFromEmail(currentUser?.email || null);
   const deviceId = "Worm1";
   const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
