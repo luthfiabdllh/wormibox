@@ -22,7 +22,7 @@ export const useSensorData = () => {
   const simulateSensorData = useCallback(async () => {
     try {
       const simulatedData: SensorData = {
-        humidity: Math.floor(Math.random() * 40) + 30, // 30-70%
+        humidity: Math.floor(Math.random() * 50) + 30, // 30-80%
         temperature: Math.floor(Math.random() * 10) + 23, // 23-32°C
         timestamp: Date.now(),
       };

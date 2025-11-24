@@ -14,15 +14,10 @@ import { useHistoricalData } from "@/hooks/useHistoricalData";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const { sensorData } = useSensorData();
   const { processHistoricalData } = useHistoricalData();
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged((user) => {
@@ -64,23 +59,10 @@ export default function DashboardPage() {
 
   const humidityTrend = calculateTrend(humidityData);
   const temperatureTrend = calculateTrend(temperatureData);
-
-  const formatDateTime = (date: Date) => {
-    return date
-      .toLocaleString("id-ID", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      })
-      .replace(/\//g, "-");
-  };
-
-  const currentHumidity = sensorData?.humidity || 40;
+  
+  const currentHumidity = parseFloat(((sensorData?.humidity ?? 40) * 100).toFixed(1));
   const currentTemperature = sensorData?.temperature || 27;
+  const currentTime =  new Date().toLocaleDateString() + " " + sensorData?.timeStr;
 
   // Humidity range: 0-100% with optimal 40-60%
   const humidityMin = 0;
@@ -140,7 +122,7 @@ export default function DashboardPage() {
         <StatsCards
           currentHumidity={currentHumidity}
           currentTemperature={currentTemperature}
-          currentTime={formatDateTime(currentTime)}
+          currentTime={currentTime}
           humidityTrend={humidityTrend}
           temperatureTrend={temperatureTrend}
         />

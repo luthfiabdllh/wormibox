@@ -19,6 +19,17 @@ export interface SensorData {
   humidity: number;
   temperature: number;
   timestamp: number;
+  timeStr?: string;
+}
+
+export interface FirebaseSensorEntry {
+  deviceId: string;
+  hum: number;
+  rssi: number;
+  t: number;
+  temp: number;
+  timeStr: string;
+  tz: string;
 }
 
 export interface HistoricalData {
@@ -103,9 +114,31 @@ export const writeSensorData = async (data: {
 
 export const readSensorData = async (): Promise<SensorData | null> => {
   try {
-    const sensorRef = ref(database, "sensorData/current");
+    const userId = "fzGeI1UaX3bnURc0KTF1Q1IdHcA3";
+    const deviceId = "Worm1";
+    const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
+
+    const sensorRef = ref(
+      database,
+      `users/${userId}/sensors/${deviceId}/byDay/${today}`
+    );
     const snapshot = await get(sensorRef);
-    return snapshot.val();
+    const data = snapshot.val();
+
+    if (!data) return null;
+
+    // Find the latest entry by timestamp
+    const entries = Object.values(data) as FirebaseSensorEntry[];
+    const latestEntry = entries.reduce((latest, current) => {
+      return current.t > latest.t ? current : latest;
+    });
+
+    return {
+      humidity: latestEntry.hum,
+      temperature: latestEntry.temp,
+      timestamp: latestEntry.t,
+      timeStr: latestEntry.timeStr,
+    };
   } catch (error) {
     console.error("Error reading sensor data:", error);
     throw error;
@@ -115,9 +148,34 @@ export const readSensorData = async (): Promise<SensorData | null> => {
 export const subscribeToSensorData = (
   callback: (data: SensorData | null) => void
 ) => {
-  const sensorRef = ref(database, "sensorData/current");
+  const userId = "fzGeI1UaX3bnURc0KTF1Q1IdHcA3";
+  const deviceId = "Worm1";
+  const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
+
+  const sensorRef = ref(
+    database,
+    `users/${userId}/sensors/${deviceId}/byDay/${today}`
+  );
   return onValue(sensorRef, (snapshot: DataSnapshot) => {
-    callback(snapshot.val());
+    const data = snapshot.val();
+
+    if (!data) {
+      callback(null);
+      return;
+    }
+
+    // Find the latest entry by timestamp
+    const entries = Object.values(data) as FirebaseSensorEntry[];
+    const latestEntry = entries.reduce((latest, current) => {
+      return current.t > latest.t ? current : latest;
+    });
+
+    callback({
+      humidity: latestEntry.hum,
+      temperature: latestEntry.temp,
+      timestamp: latestEntry.t,
+      timeStr: latestEntry.timeStr,
+    });
   });
 };
 
