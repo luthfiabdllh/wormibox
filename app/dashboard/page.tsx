@@ -57,12 +57,10 @@ export default function DashboardPage() {
     };
   };
 
-  const humidityTrend = calculateTrend(humidityData);
   const temperatureTrend = calculateTrend(temperatureData);
-  
-  const currentHumidity = parseFloat(((sensorData?.humidity ?? 40)).toFixed(1));
+
+  const currentHumidity = 0;
   const currentTemperature = sensorData?.temperature || 27;
-  const currentTime =  new Date().toLocaleDateString() + " " + sensorData?.timeStr;
 
   // Humidity range: 0-100% with optimal 40-60%
   const humidityMin = 0;
@@ -122,8 +120,6 @@ export default function DashboardPage() {
         <StatsCards
           currentHumidity={currentHumidity}
           currentTemperature={currentTemperature}
-          currentTime={currentTime}
-          humidityTrend={humidityTrend}
           temperatureTrend={temperatureTrend}
         />
 

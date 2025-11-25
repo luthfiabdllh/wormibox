@@ -11,25 +11,21 @@ import { Badge } from "../ui/badge";
 interface StatsCardsProps {
   currentHumidity: number;
   currentTemperature: number;
-  currentTime: string;
-  humidityTrend?: { trend: number; percentage: string };
   temperatureTrend?: { trend: number; percentage: string };
 }
 
 export default function StatsCards({
   currentHumidity,
   currentTemperature,
-  currentTime,
-  humidityTrend,
   temperatureTrend,
 }: StatsCardsProps) {
   const statsCards = [
     {
       title: "Humidity",
       value: `${currentHumidity}%`,
-      trend: humidityTrend?.percentage || "0%",
-      icon: (humidityTrend?.trend ?? 0) >= 0 ? TrendingUp : TrendingDown,
-      trendValue: humidityTrend?.trend ?? 0,
+      trend: null,
+      icon: null,
+      trendValue: 0,
     },
     {
       title: "Temperature",
@@ -38,21 +34,14 @@ export default function StatsCards({
       icon: (temperatureTrend?.trend ?? 0) >= 0 ? TrendingUp : TrendingDown,
       trendValue: temperatureTrend?.trend ?? 0,
     },
-    {
-      title: "Timestamp",
-      value: currentTime,
-      trend: null,
-      icon: null,
-      trendValue: 0,
-    },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-6 sm:mb-8 lg:mb-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6 mb-6 sm:mb-8 lg:mb-10">
       {statsCards.map((card, index) => (
         <Card
           key={index}
-          className="border-2 hover:shadow-lg transition-shadow sm:col-span-1 lg:col-span-1 rounded-2xl"
+          className="border-2 hover:shadow-lg transition-shadow sm:col-span-1 rounded-2xl"
         >
           <CardHeader className="pb-3">
             <div className="flex items-baseline justify-between">
@@ -76,11 +65,7 @@ export default function StatsCards({
           </CardHeader>
           <CardContent>
             <div className="flex items-baseline justify-between">
-              <CardTitle
-                className={`font-semibold text-emerald-800 ${
-                  index === 2 ? "text-xl sm:text-2xl" : "text-3xl sm:text-4xl"
-                }`}
-              >
+              <CardTitle className="font-semibold text-emerald-800 text-3xl sm:text-4xl">
                 {card.value}
               </CardTitle>
             </div>
